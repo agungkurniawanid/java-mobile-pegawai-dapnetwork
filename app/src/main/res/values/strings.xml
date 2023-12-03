@@ -2,8 +2,8 @@
     <string name="app_name">Dapnetwork App</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="deskripsi_lupa_pass1">Masukkan Email anda untuk mendapatkan kode OOTP pergantian password</string>
-    <string name="deskripsi_lupa_pass2">Cek email untuk mendapatkan kode OOTP dan masukkan kedalam kolom input</string>
+    <string name="deskripsi_lupa_pass1">Masukkan Nomor anda untuk mendapatkan kode OOTP pergantian password</string>
+    <string name="deskripsi_lupa_pass2">Cek Nomor untuk mendapatkan kode OOTP dan masukkan kedalam kolom input</string>
     <string name="deskripsi_lupa_pass3">Buat ulang kata sandi anda dan konfirm untuk keamanan login pada aplikasi</string>
     <string name="deskripsi_transaksi">
         Menambahkan data pelanggan, input pemesanan dan input data pembayaran pelanggan baru.

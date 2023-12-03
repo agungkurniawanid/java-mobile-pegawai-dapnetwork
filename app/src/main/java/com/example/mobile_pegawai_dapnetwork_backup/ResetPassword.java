@@ -28,6 +28,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.mobile_pegawai_dapnetwork_backup.classes.CONFIG_IP;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -35,7 +36,7 @@ import java.util.Map;
 
 public class ResetPassword extends AppCompatActivity {
 
-    String URL_RESET_PASSWORD = "http://"+ CONFIG_IP.URL_IP +"//agung/website-project/website-admin-toko-jaringan-backup/api/resetpassword.php";
+    String URL_RESET_PASSWORD = "https://dapnet.tifa.myhost.id/dapnet/api/resetpassword.php";
     private ImageView btnkembaliLoginRegister;
     private TextView BTN_OK;
     private ProgressDialog progressDialog;
@@ -77,12 +78,23 @@ public class ResetPassword extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 try {
                                     JSONObject object = new JSONObject(response);
-                                    String success = object.getString("success");
-                                    if (success.equals("success")) {
-                                        showAlertOOTP();
-                                    }
-                                } catch (Exception e) {
 
+                                    if (object.has("status") && object.has("message")) {
+                                        String status = object.getString("status");
+                                        String message = object.getString("message");
+
+                                        if (status.equals("success")) {
+                                            showAlertOOTP();
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Error: " + message, Toast.LENGTH_SHORT).show();
+                                        }
+                                    } else {
+                                        Toast.makeText(getApplicationContext(), "Invalid JSON format from server", Toast.LENGTH_SHORT).show();
+                                        Log.e("Volley Error", "Invalid JSON format from server");
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                    Toast.makeText(getApplicationContext(), "JSON Parsing Error", Toast.LENGTH_SHORT).show();
                                 }
                                 btnKirimOOTP.setEnabled(true);
                             }
@@ -103,11 +115,12 @@ public class ResetPassword extends AppCompatActivity {
                     @Override
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
-                        params.put("email", emailResetPassword.getText().toString());
+                        params.put("telfon", emailResetPassword.getText().toString()); // Menggunakan parameter 'telfon' sesuai dengan PHP
                         return params;
                     }
                 };
                 requestQueue.add(stringRequest);
+
             }
         });
     }
